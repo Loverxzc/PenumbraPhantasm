@@ -52,7 +52,6 @@ public class SeededNoiseBasedChunkGenerator extends NoiseBasedChunkGenerator {
    private static final int CLIFFS_MIN_FIRST_LAYER_OFFSET = 3;
    private static final int CLIFFS_LAYER_SHRINK = 5;
    private static final int CLIFFS_MAX_LAYERS = 6;
-   /** ~3× less frequent mountain centers per area than the previous 72-block grid (√3 × 72). */
    private static final int CLIFFS_MOUNTAIN_CELL_SIZE = Mth.floor(72.0D * Math.sqrt(3.0D) + 0.5D);
 
    public static final Codec<SeededNoiseBasedChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
