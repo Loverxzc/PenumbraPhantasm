@@ -385,7 +385,7 @@ public class GreatDoor {
 
             Vec3 destVec;
             if (lightDoorSecondLower == null) {
-                destVec = lightDoorPos.getCenter();
+                destVec = lightDoorPos.below().getCenter();
             } else {
                 Vec3 a = lightDoorPos.getCenter();
                 Vec3 b = lightDoorSecondLower.getCenter();
