@@ -121,8 +121,10 @@ public class GreatDoorShapeBlockEntity extends BlockEntity {
 
     @Override
     public void load(@NotNull CompoundTag tag) {
-        super.load(tag);
-        this.greatDoorPos = NbtUtils.readBlockPos(tag.getCompound(GREAT_DOOR_POS));
+        if (tag != null) {
+            super.load(tag);
+            this.greatDoorPos = NbtUtils.readBlockPos(tag.getCompound(GREAT_DOOR_POS));
+        }
     }
 
     @Override
@@ -145,7 +147,10 @@ public class GreatDoorShapeBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag());
+        CompoundTag tag = pkt.getTag();
+        if (tag != null) {
+            load(tag);
+        }
     }
 
     private void markUpdated() {
