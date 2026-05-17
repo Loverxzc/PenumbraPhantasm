@@ -23,6 +23,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+import static net.minecraft.world.level.block.AbstractFurnaceBlock.LIT;
+
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PenumbraPhantasm.MODID);
 
@@ -71,6 +73,7 @@ public class BlockRegistry {
     //Umbrastone misc
     public static final RegistryObject<Block> UMBRASTONE_PILLAR = registerBlock("umbrastone_pillar", () -> new RotatedPillarBlock(UMBRASTONE_PROPERTIES));
     public static final RegistryObject<Block> CHISELED_UMBRASTONE = registerBlock("chiseled_umbrastone", () -> new Block(UMBRASTONE_PROPERTIES));
+    public static final RegistryObject<Block> UMBRASTONE_FURNACE = registerBlock("umbrastone_furnace", () -> new UmbrastoneFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_MAGENTA).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(LIT) ? 10 : 0)));
 
     //Polished umbrastone
     public static final RegistryObject<Block> POLISHED_UMBRASTONE = registerBlock("polished_umbrastone", () -> new Block(UMBRASTONE_PROPERTIES));

@@ -3,7 +3,6 @@ package destiny.penumbra_phantasm.client.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import destiny.penumbra_phantasm.server.block.entity.DarkMarbleDiceBlockEntity;
 import destiny.penumbra_phantasm.server.block.entity.ScarletMarbleDiceBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

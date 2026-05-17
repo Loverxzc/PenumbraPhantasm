@@ -1,0 +1,13 @@
+{
+  "parent": "penumbra_phantasm:block/template_furnace_emissive",
+  "textures": {
+    "down": "penumbra_phantasm:block/umbrastone_furnace_bottom",
+    "east": "penumbra_phantasm:block/umbrastone_furnace_side",
+    "north": "penumbra_phantasm:block/umbrastone_furnace_front_cutout",
+    "north_emissive": "penumbra_phantasm:block/umbrastone_furnace_front_lit",
+    "particle": "penumbra_phantasm:block/umbrastone_furnace_side",
+    "south": "penumbra_phantasm:block/umbrastone_furnace_side",
+    "up": "penumbra_phantasm:block/umbrastone_furnace_top",
+    "west": "penumbra_phantasm:block/umbrastone_furnace_side"
+  }
+}

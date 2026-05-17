@@ -8,6 +8,7 @@ import destiny.penumbra_phantasm.client.render.model.*;
 import destiny.penumbra_phantasm.client.render.model.great_door.GreatDoorBacksideModel;
 import destiny.penumbra_phantasm.client.render.model.great_door.GreatDoorClosedModel;
 import destiny.penumbra_phantasm.client.render.model.great_door.GreatDoorOpenModel;
+import destiny.penumbra_phantasm.client.render.screen.UmbrastoneFurnaceScreen;
 import destiny.penumbra_phantasm.server.datapack.DarkWorldType;
 import destiny.penumbra_phantasm.server.registry.*;
 import destiny.penumbra_phantasm.client.render.model.item.DeltashieldModel;
@@ -28,6 +29,7 @@ import destiny.penumbra_phantasm.server.event.CommonEvents;
 import destiny.penumbra_phantasm.server.item.MusicMediumItem;
 import destiny.penumbra_phantasm.server.item.property.FriendItemProperty;
 import destiny.penumbra_phantasm.server.item.property.SoulHearthItemProperty;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -83,6 +85,7 @@ public class PenumbraPhantasm {
         FeatureRegistry.TRUNKS.register(modEventBus);
         FeatureRegistry.TREE_DECORATORS.register(modEventBus);
         FeatureRegistry.FEATURES.register(modEventBus);
+        MenuRegistry.MENUS.register(modEventBus);
         ChunkGeneratorRegistry.CHUNK_GENERATORS.register(modEventBus);
         PacketHandlerRegistry.register();
         AdvancementRegistry.register();
@@ -152,6 +155,8 @@ public class PenumbraPhantasm {
                 ItemProperties.register(ItemRegistry.DELTA_SHIELD.get(), new ResourceLocation("blocking"), (stack, level, entity, duration) -> {
                     return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1F : 0F;
                 });
+
+                MenuScreens.register(MenuRegistry.UMBRASTONE_FURNACE_MENU.get(), UmbrastoneFurnaceScreen::new);
             });
         }
 

@@ -121,7 +121,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> FALLEN_SCARLET_LEAVES = ITEMS.register("fallen_scarlet_leaves",
             () -> new ScalableHorizontalPlaneBlockItem(BlockRegistry.FALLEN_SCARLET_LEAVES.get(), new Item.Properties()));
     public static final RegistryObject<Item> ICHOR = ITEMS.register("ichor",
-            () -> new ScalableHorizontalPlaneBlockItem(BlockRegistry.ICHOR_PUDDLE.get(), new Item.Properties()));
+            () -> new IchorItem(BlockRegistry.ICHOR_PUDDLE.get(), new Item.Properties(), 2400));
     public static final RegistryObject<Item> ICHOR_TORCH = ITEMS.register("ichor_torch",
             () -> new StandingAndWallBlockItem(BlockRegistry.ICHOR_TORCH.get(), BlockRegistry.ICHOR_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
 }

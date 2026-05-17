@@ -1,10 +1,7 @@
 package destiny.penumbra_phantasm.server.registry;
 
 import destiny.penumbra_phantasm.PenumbraPhantasm;
-import destiny.penumbra_phantasm.server.block.entity.DarknessBlockEntity;
-import destiny.penumbra_phantasm.server.block.entity.DarkMarbleDiceBlockEntity;
-import destiny.penumbra_phantasm.server.block.entity.GreatDoorShapeBlockEntity;
-import destiny.penumbra_phantasm.server.block.entity.ScarletMarbleDiceBlockEntity;
+import destiny.penumbra_phantasm.server.block.entity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,4 +14,5 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<GreatDoorShapeBlockEntity>> GREAT_DOOR_SHAPE_BLOCK_ENTITY = BLOCK_ENTITIES.register("great_door_shape", () -> BlockEntityType.Builder.of(GreatDoorShapeBlockEntity::new, BlockRegistry.GREAT_DOOR_SHAPE.get()).build(null));
     public static final RegistryObject<BlockEntityType<DarkMarbleDiceBlockEntity>> DARK_MARBLE_DICE_BLOCK_ENTITY = BLOCK_ENTITIES.register("dark_marble_dice", () -> BlockEntityType.Builder.of(DarkMarbleDiceBlockEntity::new, BlockRegistry.DARK_MARBLE_DICE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ScarletMarbleDiceBlockEntity>> SCARLET_MARBLE_DICE_BLOCK_ENTITY = BLOCK_ENTITIES.register("scarlet_marble_dice", () -> BlockEntityType.Builder.of(ScarletMarbleDiceBlockEntity::new, BlockRegistry.SCARLET_MARBLE_DICE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<UmbrastoneFurnaceBlockEntity>> UMBRASTONE_FURNACE_BLOCK_ENTITY = BLOCK_ENTITIES.register("umbrastone_furnace", () -> BlockEntityType.Builder.of(UmbrastoneFurnaceBlockEntity::new, BlockRegistry.UMBRASTONE_FURNACE.get()).build(null));
 }

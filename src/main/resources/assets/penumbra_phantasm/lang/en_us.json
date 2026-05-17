@@ -62,6 +62,7 @@
 
   "block.penumbra_phantasm.umbrastone_pillar": "Umbrastone Pillar",
   "block.penumbra_phantasm.chiseled_umbrastone": "Chiseled Umbrastone",
+  "block.penumbra_phantasm.umbrastone_furnace": "Umbrastone Furnace",
 
   "block.penumbra_phantasm.polished_umbrastone": "Polished Umbrastone",
   "block.penumbra_phantasm.polished_umbrastone_stairs": "Polished Umbrastone Stairs",
@@ -317,6 +318,25 @@
   "block.penumbra_phantasm.rosegold_brick_button": "Rosegold Brick Button",
   "block.penumbra_phantasm.rosegold_brick_pressure_plate": "Rosegold Brick Pressure Plate",
 
+  "block.penumbra_phantasm.ivory_pillar": "Ivory Pillar",
+  "block.penumbra_phantasm.chiseled_ivory": "Chiseled Ivory",
+  "block.penumbra_phantasm.dark_marble_dice": "Dark Marble Dice",
+  "block.penumbra_phantasm.scarlet_marble_dice": "Scarlet Marble Dice",
+
+  "block.penumbra_phantasm.ivory_block": "Ivory Block",
+  "block.penumbra_phantasm.ivory_stairs": "Ivory Stairs",
+  "block.penumbra_phantasm.ivory_slab": "Ivory Slab",
+  "block.penumbra_phantasm.ivory_wall": "Ivory Wall",
+  "block.penumbra_phantasm.ivory_button": "Ivory Button",
+  "block.penumbra_phantasm.ivory_pressure_plate": "Ivory Pressure Plate",
+
+  "block.penumbra_phantasm.ivory_bricks": "Ivory Bricks",
+  "block.penumbra_phantasm.ivory_brick_stairs": "Ivory Brick Stairs",
+  "block.penumbra_phantasm.ivory_brick_slab": "Ivory Brick Slab",
+  "block.penumbra_phantasm.ivory_brick_wall": "Ivory Brick Wall",
+  "block.penumbra_phantasm.ivory_brick_button": "Ivory Brick Button",
+  "block.penumbra_phantasm.ivory_brick_pressure_plate": "Ivory Brick Pressure Plate",
+
   "itemGroup.penumbra_phantasm.main": "PENUMBRA PHANTASM",
   "itemGroup.penumbra_phantasm.card_kingdom": "CARD KINGDOM",
   "itemGroup.penumbra_phantasm.the_depths": "THE DEPTHS",
@@ -414,6 +434,8 @@
   "message.penumbra_phantasm.great_door_cant_open_no_light_door": "But the door wouldn't budge... (No unclaimed doors in the fountain rooms)",
   "message.penumbra_phantasm.great_door_cant_open_no_fountain": "But the door wouldn't budge... (This dark world doesn't have a fountain)",
   "message.penumbra_phantasm.great_door_cant_open_no_fountain_destination": "But the door wouldn't budge... (Destination dark world doesn't have a fountain)",
+
+  "container.penumbra_phantasm.umbrastone_furnace": "Umbrastone Furnace",
 
   "screen.penumbra_phantasm.intro.skip_notification": "PRESS [ESC] TO SKIP WITH A RANDOM CHOICE.",
   "screen.penumbra_phantasm.intro.skip_notification_post": "PRESS [ESC] TO SKIP WITH YOUR CHOICE.",
