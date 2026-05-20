@@ -189,7 +189,7 @@ public class RosegoldLighterItem extends Item {
 
     @Override
     public int getBarColor(ItemStack pStack) {
-        return Mth.color(208, 62, 230);
+        return 0xD03EE6;
     }
 
     @Override
@@ -201,7 +201,7 @@ public class RosegoldLighterItem extends Item {
 
         int uses = pStack.getTag().getInt(USES);
 
-        pTooltipComponents.add(Component.translatable("message.penumbra_phantasm.rosegold_lighter_fuel").withStyle(ChatFormatting.GRAY).append(uses + " / " + MAX_USES));
+        pTooltipComponents.add(Component.translatable("message.penumbra_phantasm.rosegold_lighter_fuel").withStyle(ChatFormatting.WHITE).append(uses + " / " + MAX_USES));
     }
 
     @Override
