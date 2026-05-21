@@ -75,13 +75,18 @@ public class RosegoldLighterItem extends Item {
 
                     level.playSound(null, pos, SoundRegistry.LIGHTER_TRY.get(), SoundSource.PLAYERS, 0.4F, 1.0F);
                     level.playSound(null, pos, SoundRegistry.LIGHTER_LIGHT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+
                 } else {
                     if (!level.isClientSide()) {
                         stack.getTag().putInt(ATTEMPTS, attempts + 1);
                     }
 
                     level.playSound(null, pos, SoundRegistry.LIGHTER_TRY.get(), SoundSource.PLAYERS, 0.5F, 1.0F);
+
                 }
+            } else {
+                level.playSound(null, pos, SoundRegistry.LIGHTER_TRY.get(), SoundSource.PLAYERS, 0.4F, 1.0F);
+
             }
         }
         return InteractionResultHolder.consume(stack);
@@ -108,15 +113,7 @@ public class RosegoldLighterItem extends Item {
         boolean open = itemStack.getTag().getBoolean(OPEN);
         int uses = itemStack.getTag().getInt(USES);
 
-        if (!open) return InteractionResult.PASS;
-
-        if (uses <= 0) {
-            BlockPos pos = player.blockPosition();
-
-            level.playSound(null, pos, SoundRegistry.LIGHTER_TRY.get(), SoundSource.PLAYERS, 0.4F, 1.0F);
-
-            return InteractionResult.PASS;
-        }
+        if (!open || uses <= 0) return InteractionResult.PASS;
 
         if (!CampfireBlock.canLight(clickedState) && !CandleBlock.canLight(clickedState) && !CandleCakeBlock.canLight(clickedState)) {
             BlockPos frontPos = clickedPos.relative(pContext.getClickedFace());
