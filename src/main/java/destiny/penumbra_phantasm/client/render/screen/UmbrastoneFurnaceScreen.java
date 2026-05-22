@@ -19,6 +19,10 @@ public class UmbrastoneFurnaceScreen extends AbstractFurnaceScreen<UmbrastoneFur
         super(menu, new SmeltingRecipeBookComponent(), playerInventory, title, TEXTURE);
         this.imageHeight = 178;
         this.imageWidth = 188;
+        this.inventoryLabelX = this.inventoryLabelX + 17;
+        this.inventoryLabelY = this.inventoryLabelY + 1;
+        this.titleLabelX = this.titleLabelX + 17;
+        this.titleLabelY = this.titleLabelY - 10;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class UmbrastoneFurnaceScreen extends AbstractFurnaceScreen<UmbrastoneFur
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        pGuiGraphics.drawString(this.font, furnaceLabel, this.titleLabelX, this.titleLabelY, -1, false);
+        pGuiGraphics.drawString(this.font, furnaceLabel, this.titleLabelX - 17, this.titleLabelY, -1, false);
         pGuiGraphics.drawString(this.font, inventoryLabel, this.inventoryLabelX, this.inventoryLabelY, -1, false);
     }
 }
