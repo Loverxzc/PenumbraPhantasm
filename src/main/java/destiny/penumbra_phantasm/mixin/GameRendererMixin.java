@@ -3,7 +3,7 @@ package destiny.penumbra_phantasm.mixin;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import destiny.penumbra_phantasm.client.FountainHueShiftRenderer;
+import destiny.penumbra_phantasm.client.render.FountainHueShiftRenderer;
 import destiny.penumbra_phantasm.client.render.FountainOpeningPosterizeRenderer;
 import destiny.penumbra_phantasm.client.render.RenderBlitUtil;
 import destiny.penumbra_phantasm.client.render.overlay.FountainDarknessOverlay;

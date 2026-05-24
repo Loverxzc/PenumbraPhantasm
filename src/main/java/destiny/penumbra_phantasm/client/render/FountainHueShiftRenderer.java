@@ -1,4 +1,4 @@
-package destiny.penumbra_phantasm.client;
+package destiny.penumbra_phantasm.client.render;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.pipeline.TextureTarget;
@@ -10,11 +10,10 @@ import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import destiny.penumbra_phantasm.client.render.FountainRenderUtil;
-import destiny.penumbra_phantasm.client.render.ModShaders;
 import destiny.penumbra_phantasm.server.capability.DarkFountainCapability;
 import destiny.penumbra_phantasm.server.fountain.DarkFountain;
 import destiny.penumbra_phantasm.server.registry.CapabilityRegistry;
+import destiny.penumbra_phantasm.server.util.DarkWorldUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
@@ -43,6 +42,9 @@ public final class FountainHueShiftRenderer {
         }
 
         ClientLevel level = minecraft.level;
+
+        if (!DarkWorldUtil.isDarkWorld(level)) return;
+
         Vec3 camPos = gameRenderer.getMainCamera().getPosition();
         DarkFountain fountain = getClosestFountain(level, camPos);
         if (fountain == null) {
