@@ -241,18 +241,13 @@ public class DarkFountain {
                 this.shockwaveTickers.add(0);
             }
 
-            List<Integer> toRemove = new ArrayList<>();
-            for (int i = 0; i < this.shockwaveTickers.size(); i++) {
-                int ticker = this.shockwaveTickers.get(i);
-
+            for (int i = shockwaveTickers.size() - 1; i >= 0; i--) {
+                int ticker = shockwaveTickers.get(i);
                 if (ticker < 5) {
-                    this.shockwaveTickers.set(i, ticker + 1);
+                    shockwaveTickers.set(i, ticker + 1);
                 } else {
-                    toRemove.add(i);
+                    shockwaveTickers.remove(i);
                 }
-            }
-            for (int ticker : toRemove) {
-                this.shockwaveTickers.remove(ticker);
             }
 
             if (this.openingTick >= FILL_START_TICK) {
