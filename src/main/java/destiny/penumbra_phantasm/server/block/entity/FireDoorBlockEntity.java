@@ -1,16 +1,21 @@
 package destiny.penumbra_phantasm.server.block.entity;
 
+import destiny.penumbra_phantasm.client.network.ClientBoundFireDoorSyncPacket;
 import destiny.penumbra_phantasm.server.block.FireDoorBlock;
 import destiny.penumbra_phantasm.server.registry.BlockEntityRegistry;
+import destiny.penumbra_phantasm.server.registry.PacketHandlerRegistry;
 import destiny.penumbra_phantasm.server.registry.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.network.PacketDistributor;
 
 public class FireDoorBlockEntity extends BlockEntity {
     public static final String DOOR_DELAY = "DoorDelay";
@@ -30,8 +35,7 @@ public class FireDoorBlockEntity extends BlockEntity {
             if (!state.getValue(BlockStateProperties.OPEN)) {
                 be.setDoorState(level, pos, true);
             }
-        }
-        else if (be.doorDelay <= 0 && state.getValue(BlockStateProperties.OPEN)) {
+        } else if (be.doorDelay <= 0 && state.getValue(BlockStateProperties.OPEN)) {
             be.setDoorState(level, pos, false);
         }
 
@@ -45,18 +49,7 @@ public class FireDoorBlockEntity extends BlockEntity {
         }
     }
 
-    public void openDoor(Level level, BlockPos lowerPos) {
-        setDoorState(level, lowerPos, true);
-        this.doorDelay = -1;
-        setChanged();
-    }
-
-    public void closeDoor(Level level, BlockPos lowerPos) {
-        setDoorState(level, lowerPos, false);
-        setChanged();
-    }
-
-    private void setDoorState(Level level, BlockPos lowerPos, boolean open) {
+    public void setDoorState(Level level, BlockPos lowerPos, boolean open) {
         BlockPos upperPos = lowerPos.above();
         BlockState lower = level.getBlockState(lowerPos);
         BlockState upper = level.getBlockState(upperPos);
@@ -66,13 +59,20 @@ public class FireDoorBlockEntity extends BlockEntity {
 
         level.playSound(null, lowerPos, open ? SoundRegistry.FIRE_DOOR_OPEN.get() : SoundRegistry.FIRE_DOOR_CLOSE.get(), SoundSource.BLOCKS, 1f, 1f);
 
-        int flags = Block.UPDATE_IMMEDIATE;
+        BlockState newLower = lower.setValue(BlockStateProperties.OPEN, open);
+        BlockState newUpper = upper.setValue(BlockStateProperties.OPEN, open);
 
-        if (upper.getBlock() instanceof FireDoorBlock) {
-            level.setBlockAndUpdate(upperPos, upper.setValue(BlockStateProperties.OPEN, open));
+        level.setBlock(lowerPos, newLower, Block.UPDATE_NONE);
+        level.setBlock(upperPos, newUpper, Block.UPDATE_NONE);
+
+        if (!level.isClientSide) {
+            ClientBoundFireDoorSyncPacket packet = new ClientBoundFireDoorSyncPacket(level.dimension(), lowerPos, upperPos, open);
+            for (ServerPlayer serverPlayer : ((ServerLevel)level).players()) {
+                if (serverPlayer.distanceToSqr(lowerPos.getX() + 0.5, lowerPos.getY(), lowerPos.getZ() + 0.5) < 64 * 64) {
+                    PacketHandlerRegistry.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+                }
+            }
         }
-
-        level.setBlockAndUpdate(lowerPos, lower.setValue(BlockStateProperties.OPEN, open));
 
         level.updateNeighborsAt(lowerPos, lower.getBlock());
     }

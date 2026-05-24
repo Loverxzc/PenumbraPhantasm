@@ -133,5 +133,11 @@ public class PacketHandlerRegistry {
                 .decoder(ServerBoundFireDoorScreenPacket::decode)
                 .consumerMainThread(ServerBoundFireDoorScreenPacket::handle)
                 .add();
+
+        INSTANCE.messageBuilder(ClientBoundFireDoorSyncPacket.class, index++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ClientBoundFireDoorSyncPacket::encode)
+                .decoder(ClientBoundFireDoorSyncPacket::decode)
+                .consumerMainThread(ClientBoundFireDoorSyncPacket::handle)
+                .add();
     }
 }

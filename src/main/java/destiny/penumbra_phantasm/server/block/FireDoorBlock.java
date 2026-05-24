@@ -90,7 +90,7 @@ public class FireDoorBlock extends BaseEntityBlock {
             BlockPos lowerPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
             BlockEntity be = pLevel.getBlockEntity(lowerPos);
 
-            if (!(be instanceof FireDoorBlockEntity doorBE)) return InteractionResult.FAIL;
+            if (!(be instanceof FireDoorBlockEntity fireDoor)) return InteractionResult.FAIL;
 
             int doorIndex = cap.findDoorIndexInList(pLevel.dimension(), lowerPos);
             boolean hasDoor = doorIndex != -1;
@@ -116,17 +116,15 @@ public class FireDoorBlock extends BaseEntityBlock {
             }
 
             FireDoor currentDoor = cap.getDoorFromIndex(doorIndex);
-            List<FireDoor> finalList = fireDoors.stream()
-                    .filter(d -> !d.equals(currentDoor))
-                    .toList();
+            List<FireDoor> finalList = fireDoors.stream().filter(d -> !d.equals(currentDoor)).toList();
 
             if (finalList.isEmpty()) {
                 pPlayer.displayClientMessage(Component.translatable("message.penumbra_phantasm.fire_door_not_enough_doors"), true);
                 return InteractionResult.FAIL;
             }
 
-            doorBE.openDoor(pLevel, lowerPos);
-            doorBE.incrementOpenCount();
+            fireDoor.setDoorState(pLevel, lowerPos, true);
+            fireDoor.incrementOpenCount();
 
             PacketHandlerRegistry.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new ClientBoundFireDoorPacket(finalList, pLevel.dimension(), lowerPos));
 

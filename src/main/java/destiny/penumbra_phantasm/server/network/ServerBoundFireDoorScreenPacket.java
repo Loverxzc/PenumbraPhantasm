@@ -40,7 +40,7 @@ public class ServerBoundFireDoorScreenPacket {
             ServerLevel level = player.getServer().getLevel(dimension);
             if (level != null && level.isLoaded(doorPos)) {
                 if (level.getBlockEntity(doorPos) instanceof FireDoorBlockEntity be) {
-                    be.closeDoor(level, doorPos);
+                    be.setDoorState(level, doorPos, false);
                     be.decrementOpenCount();
                 }
             }

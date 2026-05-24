@@ -1,13 +1,19 @@
 package destiny.penumbra_phantasm.server.network;
 
+import destiny.penumbra_phantasm.server.block.FireDoorBlock;
 import destiny.penumbra_phantasm.server.block.entity.FireDoorBlockEntity;
+import destiny.penumbra_phantasm.server.registry.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -52,27 +58,32 @@ public class ServerBoundFireDoorPacket {
 
             ServerLevel originLevel = player.getServer().getLevel(originDarkWorld);
             if (originLevel != null && originLevel.isLoaded(originPos)) {
-                if (originLevel.getBlockEntity(originPos) instanceof FireDoorBlockEntity originBe) {
-                    originBe.closeDoor(originLevel, originPos);
-                    originBe.decrementOpenCount();
+                if (originLevel.getBlockEntity(originPos) instanceof FireDoorBlockEntity originFireDoor) {
+                    originFireDoor.setDoorState(originLevel, originPos, false);
+                    originFireDoor.decrementOpenCount();
                 }
             }
 
             ServerLevel targetLevel = player.getServer().getLevel(darkWorld);
             if (targetLevel != null && targetLevel.isLoaded(doorPos)) {
-                if (targetLevel.getBlockEntity(doorPos) instanceof FireDoorBlockEntity targetBe) {
-                    targetBe.openDoor(targetLevel, doorPos);
-                    targetBe.doorDelay = 20;
-                    targetBe.setChanged();
+                BlockState destState = targetLevel.getBlockState(doorPos);
+
+                if (destState.getBlock() instanceof FireDoorBlock && !destState.getValue(BlockStateProperties.OPEN)) {
+                    targetLevel.setBlock(doorPos, destState.setValue(BlockStateProperties.OPEN, true), Block.UPDATE_ALL);
+                    targetLevel.playSound(null, doorPos, SoundRegistry.FIRE_DOOR_OPEN.get(), SoundSource.BLOCKS, 1f, 1f);
+                }
+
+                if (targetLevel.getBlockEntity(doorPos) instanceof FireDoorBlockEntity targetFireDoor) {
+                    targetFireDoor.doorDelay = 20;
+                    targetFireDoor.setChanged();
                 }
             }
 
             double x = doorPos.getX() + 0.5;
             double y = doorPos.getY();
             double z = doorPos.getZ() + 0.5;
-            float yaw = facingAngle;
 
-            player.teleportTo(targetLevel, x, y, z, yaw, player.getXRot());
+            player.teleportTo(targetLevel, x, y, z, facingAngle, player.getXRot());
         });
         return true;
     }
