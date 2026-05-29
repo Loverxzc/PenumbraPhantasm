@@ -667,7 +667,7 @@ public class ClientEvents {
 
 			if (blink && heartIndex < displayHealth) {
 				boolean half = heartIndex + 1 == displayHealth;
-				renderHeart(gui, heartType, heartX, heartY, hardcoreOffset, true, half);
+				renderHeart(gui, heartType, heartX, heartY, hardcoreOffset, false, half);
 			}
 
 			if (heartIndex < currentHealth) {
@@ -688,7 +688,6 @@ public class ClientEvents {
 				if (i < totalHearts && i == regenerationOffset) {
 					heartY -= 2;
 				}
-				renderHeart(gui, Gui.HeartType.CONTAINER, heartX, heartY, hardcoreOffset, false, false);
 				renderHeart(gui, Gui.HeartType.CONTAINER, heartX, heartY, hardcoreOffset, true, false);
 			}
 		}
