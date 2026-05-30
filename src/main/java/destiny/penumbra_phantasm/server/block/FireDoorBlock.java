@@ -87,24 +87,53 @@ public class FireDoorBlock extends BaseEntityBlock {
 
         if (pPlayer instanceof ServerPlayer serverPlayer) {
             FireDoorsCapability cap = serverPlayer.getCapability(CapabilityRegistry.FIRE_DOORS).orElse(null);
-
             List<FireDoor> allDoors = cap.playerFireDoors;
             ResourceKey<Level> currentDim = pLevel.dimension();
 
-            List<FireDoor> sameDimDoors = new ArrayList<>();
+            //Door validation
             List<FireDoor> invalidDoors = new ArrayList<>();
+            for (int i = 0; i < allDoors.size(); i++) {
+                FireDoor fireDoor = allDoors.get(i);
 
-            for (FireDoor fd : allDoors) {
-                if (!fd.darkWorld().equals(currentDim)) continue;
+                if (!fireDoor.darkWorld().equals(currentDim)) continue;
 
-                if (pLevel.getBlockState(fd.doorPos()).getBlock() == this) {
-                    sameDimDoors.add(fd);
+                BlockPos doorPos = fireDoor.doorPos();
+                BlockState stateAtPos = pLevel.getBlockState(doorPos);
+
+                if (stateAtPos.getBlock() != this) {
+                    invalidDoors.add(fireDoor);
+                    continue;
+                }
+
+                float currentYRot = stateAtPos.getValue(HORIZONTAL_FACING).toYRot();
+
+                Component currentName;
+                if (pLevel.getBlockEntity(doorPos) instanceof FireDoorBlockEntity be && be.hasCustomName()) {
+                    currentName = be.getCustomName();
                 } else {
-                    invalidDoors.add(fd);
+                    currentName = Component.translatable("block.penumbra_phantasm.fire_door");
+                }
+
+                boolean angleChanged = fireDoor.facingAngle() != currentYRot;
+                boolean nameChanged = !fireDoor.name().equals(currentName);
+
+                if (angleChanged || nameChanged) {
+                    FireDoor updated = new FireDoor(fireDoor.darkWorld(), doorPos, currentYRot, currentName);
+                    allDoors.set(i, updated);
                 }
             }
 
+            for (FireDoor fireDoor : invalidDoors) {
+                cap.removeFireDoor(fireDoor.darkWorld(), fireDoor.doorPos());
+            }
             allDoors.removeAll(invalidDoors);
+
+            List<FireDoor> sameDimDoors = new ArrayList<>();
+            for (FireDoor fireDoor : allDoors) {
+                if (fireDoor.darkWorld().equals(currentDim)) {
+                    sameDimDoors.add(fireDoor);
+                }
+            }
 
             BlockPos lowerPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
             BlockEntity be = pLevel.getBlockEntity(lowerPos);
