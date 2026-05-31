@@ -18,7 +18,7 @@ import static destiny.penumbra_phantasm.server.block.DarkCandyBlock.FACING;
 
 public class DarkCandyLeaves extends LeavesBlock {
     public DarkCandyLeaves(Properties properties) {
-        super(properties);
+        super(properties.isRedstoneConductor((s, l, p) -> false));
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ScarletLeavesBlock extends LeavesBlock {
     public ScarletLeavesBlock(Properties properties) {
-        super(properties);
+        super(properties.isRedstoneConductor((s, l, p) -> false));
     }
 
     @Override
